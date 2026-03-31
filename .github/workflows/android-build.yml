@@ -22,6 +22,14 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
     
+    - name: Create Gradle Wrapper if missing
+      run: |
+        if [ ! -f "./gradlew" ]; then
+          echo "Gradle wrapper not found, creating..."
+          gradle wrapper
+        fi
+      shell: bash
+    
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     
@@ -29,7 +37,7 @@ jobs:
       run: ./gradlew build
     
     - name: Upload APK
-      uses: actions/upload-artifact@v4  # ← CHANGED FROM v3 TO v4
+      uses: actions/upload-artifact@v4
       with:
         name: app-debug
         path: app/build/outputs/apk/debug/
