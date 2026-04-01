@@ -1,6 +1,7 @@
 package com.example.videodownloader
 
 import android.os.Bundle
+import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
             webView.settings.javaScriptEnabled = true
             webView.settings.domStorageEnabled = true
             
+            // Add JavaScript interface with proper import
             webView.addJavascriptInterface(object {
                 @JavascriptInterface
                 fun loadUrl(url: String) {
@@ -36,6 +38,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             
+            // Load HTML from assets
             webView.loadUrl("file:///android_asset/index.html")
             Toast.makeText(this, "App started!", Toast.LENGTH_SHORT).show()
             
